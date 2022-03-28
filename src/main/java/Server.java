@@ -7,6 +7,7 @@ public class Server {
         this.server = Javalin.create();
         this.server.get("hello",
                 context -> context.result("Hello, user!"));
+
     }
 
     public Javalin start(){
