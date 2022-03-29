@@ -1,5 +1,6 @@
 import io.javalin.http.Context;
 import io.javalin.http.HttpCode;
+import io.javalin.http.NotFoundResponse;
 
 public class UserApiHandler {
     private static final UserDB database = new TestDatabase();
@@ -13,6 +14,11 @@ public class UserApiHandler {
     public static void getOne(Context context){
         Integer id = context.pathParamAsClass("id", Integer.class).get();
         User user = database.get(id);
+
+        //adding some error handling
+        if (user == null){
+            throw new NotFoundResponse("User not found: " + id);
+        }
         context.json(user);
     }
 
