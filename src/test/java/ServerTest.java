@@ -10,7 +10,7 @@ public class ServerTest {
     @DisplayName("GET /hello")
     public void shouldGetHelloUser(){
         Server api = new Server();
-        api.start();
+        api.start(7000);
         HttpResponse<String> response
                 = Unirest.get("http://localhost:7000/hello").asString();
         assertEquals(200, response.getStatus());

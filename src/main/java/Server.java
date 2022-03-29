@@ -14,8 +14,8 @@ public class Server {
 
     }
 
-    public Javalin start(){
-        return this.server.start(7000);
+    public Javalin start(int port){
+        return this.server.start(port);
     }
 
     public Javalin stop(){
@@ -24,7 +24,7 @@ public class Server {
 
     public static void main(String[] args) {
         Server api = new Server();
-        api.start();
+        api.start(5000);
     }
 
 }
