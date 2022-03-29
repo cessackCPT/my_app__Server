@@ -50,9 +50,10 @@ public class ActualDatabase implements UserDB {
                 UserList.add(temporary);
                 user = new User();
             }
-        }catch(SQLException e){
-
         }
+//        catch(SQLException e){
+//
+//        }
         return UserList;
     }
 
@@ -69,7 +70,9 @@ public class ActualDatabase implements UserDB {
                 "                           );\n";
 
 
+
         try(Connection conn = DriverManager.getConnection("jdbc:sqlite:users")){
+//            Class.forName("org.sqlite.JDBC");
              PreparedStatement prepedStmt = conn.prepareStatement(sql_to_execute);
             prepedStmt.setString(1, user.getUsername());
             prepedStmt.setString(2, user.getPassword());
