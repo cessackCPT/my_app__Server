@@ -2,11 +2,13 @@ import io.javalin.http.Context;
 import io.javalin.http.HttpCode;
 import io.javalin.http.NotFoundResponse;
 
+import java.sql.SQLException;
+
 public class UserApiHandler {
-    private static final UserDB database = new TestDatabase();
+    private static final UserDB database = new ActualDatabase();
 
     //get all the users
-    public static void getAll(Context context){
+    public static void getAll(Context context) throws SQLException {
         context.json(database.all());
     }
 
@@ -23,7 +25,7 @@ public class UserApiHandler {
     }
 
     //create a new user
-    public static void create(Context context){
+    public static void create(Context context) throws SQLException {
         User user = context.bodyAsClass(User.class);
         User newUser = database.add(user);
         context.header("Location", "/user/" + newUser.getId());

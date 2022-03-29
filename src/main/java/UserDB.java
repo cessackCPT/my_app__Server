@@ -1,3 +1,4 @@
+import java.sql.SQLException;
 import java.util.List;
 
 public interface UserDB {
@@ -5,8 +6,8 @@ public interface UserDB {
     User get(Integer id);
 
     //get all the users in the database
-    List<User> all();
+    List<User> all() throws SQLException;
 
     //add a new individual user to the database
-    User add(User user);
+    User add(User user) throws SQLException;
 }
