@@ -21,6 +21,7 @@ public class ActualDatabase implements UserDB {
         return connection;
     }
 
+    //create a user object
     @Override
     public User get(Integer id){
         String sql_to_execute = "SELECT * FROM all_users WHERE id=?";
@@ -33,7 +34,7 @@ public class ActualDatabase implements UserDB {
             prepedStmt.setInt(1, id);
 
             ResultSet resultSet = prepedStmt.executeQuery();
-            System.out.println("jgsekgfsjd");
+//            System.out.println("jgsekgfsjd");
             user.setId(resultSet.getInt("id"));
             user.setUsername(resultSet.getString("username"));
             user.setPassword(resultSet.getString("password"));
