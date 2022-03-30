@@ -34,8 +34,8 @@ public class UserApiTests {
         assertEquals(200, response.getStatus());
 
         JSONObject jsonObject = response.getBody().getObject();
-        assertEquals("Jimmy", jsonObject.get("username"));
-        assertEquals("123", jsonObject.get("password"));
+        assertEquals("Bob", jsonObject.get("username"));
+        assertEquals("pass123", jsonObject.get("password"));
     }
 
     //testing getting all the users
@@ -53,16 +53,20 @@ public class UserApiTests {
 
     //testing creating a new user
     @Test
-    @DisplayName("POST /users")
+    @DisplayName("POST /user_add")
     void create() throws UnirestException{
-        HttpResponse<JsonNode> response = Unirest.post("http://localhost:5000/users")
+        HttpResponse<JsonNode> response = Unirest.post("http://localhost:5000/user_add")
                 .header("Content-Type", "application/json")
                 .body(User.create("Dave", "capel_game"))
                 .asJson();
         assertEquals(201, response.getStatus());
-        assertEquals("/user/4", response.getHeaders().getFirst("Location"));
+        System.out.println(response.getHeaders());
+        System.out.println(response.getBody());
+//        assertEquals("/user/2", response.getHeaders().getFirst("Location"));
+        assertEquals("Dave", response.getBody().getObject().get("username"));
 
-        response = Unirest.get("http://localhost:5000/user/4").asJson();
+        response = Unirest.get("http://localhost:5000/user/2").asJson();
+        System.out.println(response.getBody());
         assertEquals(200, response.getStatus());
     }
 

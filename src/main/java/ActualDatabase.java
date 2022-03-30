@@ -23,7 +23,28 @@ public class ActualDatabase implements UserDB {
 
     @Override
     public User get(Integer id){
-        return null;
+        String sql_to_execute = "SELECT * FROM all_users WHERE id=?";
+
+        User user = new User();
+
+        try(Connection conn = DriverManager.getConnection("jdbc:sqlite:users.sqlite")){
+//            Class.forName("org.sqlite.JDBC");
+            PreparedStatement prepedStmt = conn.prepareStatement(sql_to_execute);
+            prepedStmt.setInt(1, id);
+
+            ResultSet resultSet = prepedStmt.executeQuery();
+            System.out.println("jgsekgfsjd");
+            user.setId(resultSet.getInt("id"));
+            user.setUsername(resultSet.getString("username"));
+            user.setPassword(resultSet.getString("password"));
+
+            System.out.println("user is being gotten");
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+        return user;
     }
 
     @Override
@@ -37,9 +58,9 @@ public class ActualDatabase implements UserDB {
         String sql1 = "SELECT id,\n" +
                 "       username,\n" +
                 "       password \n" +
-                "       FROM UserList;\n";
+                "       FROM all_users;\n";
 
-        try(Connection connection = DriverManager.getConnection("jdbc:sqlite:users")){
+        try(Connection connection = DriverManager.getConnection("jdbc:sqlite:users.sqlite")){
             statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(sql1);
             while (resultSet.next()){
@@ -60,7 +81,7 @@ public class ActualDatabase implements UserDB {
     //this is where the values go into the table
     @Override
     public User add(User user) throws SQLException {
-        String sql_to_execute = "INSERT INTO UserList (\n" +
+        String sql_to_execute = "INSERT INTO all_users (\n" +
                 "                           username,\n" +
                 "                           password\n" +
                 "                           )\n" +
@@ -71,7 +92,7 @@ public class ActualDatabase implements UserDB {
 
 
 
-        try(Connection conn = DriverManager.getConnection("jdbc:sqlite:users")){
+        try(Connection conn = DriverManager.getConnection("jdbc:sqlite:users.sqlite")){
 //            Class.forName("org.sqlite.JDBC");
              PreparedStatement prepedStmt = conn.prepareStatement(sql_to_execute);
             prepedStmt.setString(1, user.getUsername());

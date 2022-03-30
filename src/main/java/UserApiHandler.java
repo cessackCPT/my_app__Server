@@ -28,7 +28,7 @@ public class UserApiHandler {
     public static void create(Context context) throws SQLException {
         User user = context.bodyAsClass(User.class);
         User newUser = database.add(user);
-        context.header("Location", "/user/" + newUser.getId());
+//        context.header("Location", "/user/" + newUser.getId());
         context.status(HttpCode.CREATED);
         context.json(newUser);
     }

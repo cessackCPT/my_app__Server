@@ -10,7 +10,7 @@ public class Server {
         //server mostly tells you which http requests you can make that the api will allow
         this.server.get("/users", context -> UserApiHandler.getAll(context));
         this.server.get("/user/{id}", context -> UserApiHandler.getOne(context));
-        this.server.post("/users", context -> UserApiHandler.create(context));
+        this.server.post("/user_add", context -> UserApiHandler.create(context));
 
     }
 
